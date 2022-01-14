@@ -1,4 +1,4 @@
-package cn.ztuo.boot;
+package site.daishuyang;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

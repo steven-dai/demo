@@ -1,4 +1,4 @@
-package cn.ztuo.cloud;
+package site.daishuyang.nacos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

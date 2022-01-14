@@ -1,4 +1,4 @@
-package cn.ztuo.boot.redis;
+package site.daishuyang.redis;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;

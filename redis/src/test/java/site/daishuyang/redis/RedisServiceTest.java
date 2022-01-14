@@ -1,4 +1,4 @@
-package cn.ztuo.boot.redis;
+package site.daishuyang.redis;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

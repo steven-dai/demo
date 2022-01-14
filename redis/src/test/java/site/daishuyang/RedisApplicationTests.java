@@ -1,4 +1,4 @@
-package cn.ztuo.boot;
+package site.daishuyang;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

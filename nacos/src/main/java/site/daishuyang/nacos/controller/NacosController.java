@@ -1,4 +1,4 @@
-package cn.ztuo.cloud.controller;
+package site.daishuyang.nacos.controller;
 
 import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.config.annotation.NacosValue;
