@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>site.daishuyang.nacos</groupId>
+    <artifactId>nacos</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <spring-boot.version>2.6.2</spring-boot.version>
+        <nacos-config.version>0.2.7</nacos-config.version>
+        <nacos-discovery.version>0.2.7</nacos-discovery.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.6.2</version>
+        </dependency>
+        <!--  服务配置  -->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-config-spring-boot-starter</artifactId>
+            <version>${nacos-config.version}</version>
+        </dependency>
+        <!--  服务发现  -->
+        <dependency>
+            <groupId>com.alibaba.boot</groupId>
+            <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+            <version>${nacos-discovery.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
