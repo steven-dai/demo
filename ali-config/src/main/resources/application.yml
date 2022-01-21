@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    cache: false  #使用Thymeleaf模板引擎，关闭缓存
+    servlet:
+      content-type: text/html
+
+config:
+  aliInfos:
+    - id: 1
+      desc: 正拓物业
+      accessKeyId: accessKeyId1
+      accessKeySecret: accessKeySecret1
+      endpoint: endpoint1
+      regionId: regionId1
+      account: account1
+    - id: 2
+      desc: 百视物业
+      accessKeyId: accessKeyId2
+      accessKeySecret: accessKeySecret2
+      endpoint: endpoint2
+      regionId: regionId2
+      account: account2

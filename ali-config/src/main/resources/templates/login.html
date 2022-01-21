@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" ></script>
+    <script type="text/javascript">
+        $(function(){
+            // 如果提示信息不为空，弹窗提醒
+            let msg = $("#msg").text();
+            if(msg!=null && msg!=""){
+                alert(msg);
+            }
+        })
+    </script>
+
+    <style>
+        .form-div {
+            text-align: center;
+        }
+        .div-class {
+            border-radius: 1rem;
+        }
+        .background {
+            background-color: white;
+        }
+        .select {
+            width: 10rem;
+            height: 2rem;
+        }
+        .center {
+            display: -webkit-flex; /* Safari */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .h2 {
+            left: 20px;
+            top: 15px;
+        }
+        .gradient{
+            background: -moz-linear-gradient(top, #000000 0%, #ffffff 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));
+            background: -webkit-linear-gradient(top, #000000 0%,#ffffff 100%);
+            background: -o-linear-gradient(top, #000000 0%,#ffffff 100%);
+            background: -ms-linear-gradient(top, #000000 0%,#ffffff 100%);
+            background: linear-gradient(to bottom, #000000 0%,#ffffff 100%);
+        }
+    </style>
+</head>
+<body class="center gradient" style="height: 100%;">
+<span id="msg" hidden="hidden" th:text="${msg}" ></span>
+<div class="form-div background center div-class" style="width: 300px; height: 240px;">
+    <form action="login" method="POST" class="form-login">
+        <h2 class="h2">aliyun安全组配置</h2>
+        <select name="aliId" class="b_select select" >
+            <option value="">请选择</option>
+            <option th:each="item:${aliInfos}"
+                    th:value="${item.id}" th:text="${item.desc}">
+            </option>
+        </select><br>
+        <input class="input select" type="text" name="account" style="margin-top: 10px; width: 200px; height: 34px;"><br>
+        <input class="btn select" type="submit" value="登录" style="margin-top: 10px;">
+    </form>
+</div>
+</body>
+</html>
