@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="busi001" name="busi001" isExecutable="true">
+    <startEvent id="sid-start" name="开始">
+      <documentation>开始节点</documentation>
+    </startEvent>
+    <userTask id="sid-node1" name="节点1">
+      <documentation>第一个审批节点</documentation>
+        <extensionElements>
+            <activiti:taskListener event="create" delegateExpression="${assignmentHandler}">
+                <activiti:field name="deptKey" stringValue="node1" />
+            </activiti:taskListener>
+        </extensionElements>
+    </userTask>
+    <userTask id="sid-node2" name="节点2">
+      <documentation>第二个节点</documentation>
+        <extensionElements>
+            <activiti:taskListener event="create" delegateExpression="${assignmentHandler}">
+                <activiti:field name="deptKey" stringValue="node2" />
+            </activiti:taskListener>
+        </extensionElements>
+    </userTask>
+    <userTask id="sid-node3" name="节点3">
+      <documentation>第三个节点</documentation>
+        <extensionElements>
+            <activiti:taskListener event="create" delegateExpression="${assignmentHandler}">
+                <activiti:field name="deptKey" stringValue="node3" />
+            </activiti:taskListener>
+        </extensionElements>
+    </userTask>
+    <endEvent id="sid-end" name="结束">
+      <documentation>结束节点</documentation>
+    </endEvent>
+    <sequenceFlow id="sid-0d70ec76-0e7a-4717-9888-c2b285813f96" sourceRef="sid-start" targetRef="sid-node1"/>
+    <sequenceFlow id="sid-40c1cc1e-0827-480f-aa35-0dfdce028bea" sourceRef="sid-node1" targetRef="sid-start">
+      <conditionExpression>${agree==false}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-2439d81a-3e57-4448-81d0-34707fa3a19a" sourceRef="sid-node1" targetRef="sid-node2">
+      <conditionExpression>${agree==true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-bc1657cb-e14e-45d8-b937-51b8f7243999" sourceRef="sid-node2" targetRef="sid-node1">
+      <conditionExpression>${agree==false}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-741219aa-1c36-4be2-84c8-2836190bc3a8" sourceRef="sid-node2" targetRef="sid-node3">
+      <conditionExpression>${agree==true}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-a8d0a387-280c-4991-b0da-8bbd105b9960" sourceRef="sid-node3" targetRef="sid-node2">
+      <conditionExpression>${agree==false}</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-57f239fe-30fc-454e-a3a6-189fc0949f6a" sourceRef="sid-node3" targetRef="sid-end">
+      <conditionExpression>${agree==true}</conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_busi001">
+    <bpmndi:BPMNPlane bpmnElement="busi001" id="BPMNPlane_busi001">
+      <bpmndi:BPMNShape id="shape-bf84330f-b68a-4369-a903-1c45729c68ab" bpmnElement="sid-start">
+        <omgdc:Bounds x="-200.0" y="-32.5" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-efc6febe-5cbb-4e5b-9157-a5d1636fe59e" bpmnElement="sid-node1">
+        <omgdc:Bounds x="-125.0" y="-32.5" width="35.0" height="30.000002"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-48d93144-baa0-459c-b62b-080b1bd894e7" bpmnElement="sid-node2">
+        <omgdc:Bounds x="-45.0" y="-32.5" width="35.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-afc14fbd-7e78-44ef-874b-8925609b7357" bpmnElement="sid-node3">
+        <omgdc:Bounds x="45.0" y="-35.0" width="35.0" height="35.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="shape-86758fde-21ee-44fd-9e80-cf0ba3ab79cf" bpmnElement="sid-end">
+        <omgdc:Bounds x="140.0" y="-32.5" width="30.0" height="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="edge-faa2b59c-eb2b-4a50-9b9c-fd874a3e63ec" bpmnElement="sid-0d70ec76-0e7a-4717-9888-c2b285813f96">
+        <omgdi:waypoint x="-170.0" y="-17.5"/>
+        <omgdi:waypoint x="-125.0" y="-17.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-87769a86-8535-4f07-97d9-637edbcc6018" bpmnElement="sid-40c1cc1e-0827-480f-aa35-0dfdce028bea">
+        <omgdi:waypoint x="-125.0" y="-25.0"/>
+        <omgdi:waypoint x="-170.0" y="-25.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-efa91cbd-fab9-495d-96c9-5139759127c6" bpmnElement="sid-2439d81a-3e57-4448-81d0-34707fa3a19a">
+        <omgdi:waypoint x="-90.0" y="-17.5"/>
+        <omgdi:waypoint x="-45.0" y="-17.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-42e76a1f-eb65-4f8d-8e18-6fb7bd1b8097" bpmnElement="sid-bc1657cb-e14e-45d8-b937-51b8f7243999">
+        <omgdi:waypoint x="-45.0" y="-25.0"/>
+        <omgdi:waypoint x="-90.0" y="-25.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-7705eb7a-d8af-4600-91b6-e35b5934e6ef" bpmnElement="sid-741219aa-1c36-4be2-84c8-2836190bc3a8">
+        <omgdi:waypoint x="-10.0" y="-17.5"/>
+        <omgdi:waypoint x="45.0" y="-17.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-5a23bffe-9544-4644-90f4-bb8cc26a2489" bpmnElement="sid-a8d0a387-280c-4991-b0da-8bbd105b9960">
+        <omgdi:waypoint x="45.0" y="-26.25"/>
+        <omgdi:waypoint x="-10.0" y="-25.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="edge-b50b3ef2-8f32-4c7a-a0fd-2d3fb5c3d94e" bpmnElement="sid-57f239fe-30fc-454e-a3a6-189fc0949f6a">
+        <omgdi:waypoint x="80.0" y="-17.5"/>
+        <omgdi:waypoint x="140.0" y="-17.5"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ztuo.mbg.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="cn.ztuo.mbg.model.SysMenu">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PROJECT_ID" jdbcType="VARCHAR" property="projectId" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="MENU_STATUS" jdbcType="VARCHAR" property="menuStatus" />
+    <result column="MENU_TYPE" jdbcType="VARCHAR" property="menuType" />
+    <result column="MENU_SORT" jdbcType="DECIMAL" property="menuSort" />
+    <result column="MENU_PERMS" jdbcType="VARCHAR" property="menuPerms" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PATH" jdbcType="VARCHAR" property="path" />
+    <result column="COMPONENT" jdbcType="VARCHAR" property="component" />
+    <result column="REDIRECT" jdbcType="VARCHAR" property="redirect" />
+    <result column="META_SHOW" jdbcType="VARCHAR" property="metaShow" />
+    <result column="META_TITLE" jdbcType="VARCHAR" property="metaTitle" />
+    <result column="META_ICON" jdbcType="VARCHAR" property="metaIcon" />
+    <result column="META_TARGET" jdbcType="VARCHAR" property="metaTarget" />
+    <result column="META_HIDE_CHILDREN" jdbcType="VARCHAR" property="metaHideChildren" />
+    <result column="META_HIDDEN_HEADER_CONTENT" jdbcType="VARCHAR" property="metaHiddenHeaderContent" />
+    <result column="BUSINESS_TYPE" jdbcType="VARCHAR" property="businessType" />
+    <result column="SYS_FLAG" jdbcType="VARCHAR" property="sysFlag" />
+    <result column="SYS_DEPT" jdbcType="VARCHAR" property="sysDept" />
+    <result column="SYS_CREATE_USER" jdbcType="VARCHAR" property="sysCreateUser" />
+    <result column="SYS_UPDATE_USER" jdbcType="VARCHAR" property="sysUpdateUser" />
+    <result column="SYS_CREATE_TIME" jdbcType="TIMESTAMP" property="sysCreateTime" />
+    <result column="SYS_UPDATE_TIME" jdbcType="TIMESTAMP" property="sysUpdateTime" />
+    <result column="SYS_REMARK" jdbcType="VARCHAR" property="sysRemark" />
+    <result column="MENU_LEVEL" jdbcType="DECIMAL" property="menuLevel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PROJECT_ID, PARENT_ID, MENU_STATUS, MENU_TYPE, MENU_SORT, MENU_PERMS, NAME, PATH, 
+    COMPONENT, REDIRECT, META_SHOW, META_TITLE, META_ICON, META_TARGET, META_HIDE_CHILDREN, 
+    META_HIDDEN_HEADER_CONTENT, BUSINESS_TYPE, SYS_FLAG, SYS_DEPT, SYS_CREATE_USER, SYS_UPDATE_USER, 
+    SYS_CREATE_TIME, SYS_UPDATE_TIME, SYS_REMARK, MENU_LEVEL
+  </sql>
+  <select id="selectByExample" parameterType="cn.ztuo.mbg.model.SysMenuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_menu
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.ztuo.mbg.model.SysMenuExample">
+    delete from sys_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.ztuo.mbg.model.SysMenu">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_menu (PROJECT_ID, PARENT_ID, MENU_STATUS, 
+      MENU_TYPE, MENU_SORT, MENU_PERMS, 
+      NAME, PATH, COMPONENT, 
+      REDIRECT, META_SHOW, META_TITLE, 
+      META_ICON, META_TARGET, META_HIDE_CHILDREN, 
+      META_HIDDEN_HEADER_CONTENT, BUSINESS_TYPE, 
+      SYS_FLAG, SYS_DEPT, SYS_CREATE_USER, 
+      SYS_UPDATE_USER, SYS_CREATE_TIME, SYS_UPDATE_TIME, 
+      SYS_REMARK, MENU_LEVEL)
+    values (#{projectId,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{menuStatus,jdbcType=VARCHAR}, 
+      #{menuType,jdbcType=VARCHAR}, #{menuSort,jdbcType=DECIMAL}, #{menuPerms,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, 
+      #{redirect,jdbcType=VARCHAR}, #{metaShow,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, 
+      #{metaIcon,jdbcType=VARCHAR}, #{metaTarget,jdbcType=VARCHAR}, #{metaHideChildren,jdbcType=VARCHAR}, 
+      #{metaHiddenHeaderContent,jdbcType=VARCHAR}, #{businessType,jdbcType=VARCHAR}, 
+      #{sysFlag,jdbcType=VARCHAR}, #{sysDept,jdbcType=VARCHAR}, #{sysCreateUser,jdbcType=VARCHAR}, 
+      #{sysUpdateUser,jdbcType=VARCHAR}, #{sysCreateTime,jdbcType=TIMESTAMP}, #{sysUpdateTime,jdbcType=TIMESTAMP}, 
+      #{sysRemark,jdbcType=VARCHAR}, #{menuLevel,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.ztuo.mbg.model.SysMenu">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        PROJECT_ID,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="menuStatus != null">
+        MENU_STATUS,
+      </if>
+      <if test="menuType != null">
+        MENU_TYPE,
+      </if>
+      <if test="menuSort != null">
+        MENU_SORT,
+      </if>
+      <if test="menuPerms != null">
+        MENU_PERMS,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="path != null">
+        PATH,
+      </if>
+      <if test="component != null">
+        COMPONENT,
+      </if>
+      <if test="redirect != null">
+        REDIRECT,
+      </if>
+      <if test="metaShow != null">
+        META_SHOW,
+      </if>
+      <if test="metaTitle != null">
+        META_TITLE,
+      </if>
+      <if test="metaIcon != null">
+        META_ICON,
+      </if>
+      <if test="metaTarget != null">
+        META_TARGET,
+      </if>
+      <if test="metaHideChildren != null">
+        META_HIDE_CHILDREN,
+      </if>
+      <if test="metaHiddenHeaderContent != null">
+        META_HIDDEN_HEADER_CONTENT,
+      </if>
+      <if test="businessType != null">
+        BUSINESS_TYPE,
+      </if>
+      <if test="sysFlag != null">
+        SYS_FLAG,
+      </if>
+      <if test="sysDept != null">
+        SYS_DEPT,
+      </if>
+      <if test="sysCreateUser != null">
+        SYS_CREATE_USER,
+      </if>
+      <if test="sysUpdateUser != null">
+        SYS_UPDATE_USER,
+      </if>
+      <if test="sysCreateTime != null">
+        SYS_CREATE_TIME,
+      </if>
+      <if test="sysUpdateTime != null">
+        SYS_UPDATE_TIME,
+      </if>
+      <if test="sysRemark != null">
+        SYS_REMARK,
+      </if>
+      <if test="menuLevel != null">
+        MENU_LEVEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuStatus != null">
+        #{menuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null">
+        #{menuSort,jdbcType=DECIMAL},
+      </if>
+      <if test="menuPerms != null">
+        #{menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="redirect != null">
+        #{redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="metaShow != null">
+        #{metaShow,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metaIcon != null">
+        #{metaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTarget != null">
+        #{metaTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHideChildren != null">
+        #{metaHideChildren,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHiddenHeaderContent != null">
+        #{metaHiddenHeaderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlag != null">
+        #{sysFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sysDept != null">
+        #{sysDept,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCreateUser != null">
+        #{sysCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUpdateUser != null">
+        #{sysUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCreateTime != null">
+        #{sysCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysUpdateTime != null">
+        #{sysUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysRemark != null">
+        #{sysRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="menuLevel != null">
+        #{menuLevel,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.ztuo.mbg.model.SysMenuExample" resultType="java.lang.Long">
+    select count(*) from sys_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_menu
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectId != null">
+        PROJECT_ID = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuStatus != null">
+        MENU_STATUS = #{record.menuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuType != null">
+        MENU_TYPE = #{record.menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuSort != null">
+        MENU_SORT = #{record.menuSort,jdbcType=DECIMAL},
+      </if>
+      <if test="record.menuPerms != null">
+        MENU_PERMS = #{record.menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null">
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.component != null">
+        COMPONENT = #{record.component,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redirect != null">
+        REDIRECT = #{record.redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaShow != null">
+        META_SHOW = #{record.metaShow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaTitle != null">
+        META_TITLE = #{record.metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaIcon != null">
+        META_ICON = #{record.metaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaTarget != null">
+        META_TARGET = #{record.metaTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaHideChildren != null">
+        META_HIDE_CHILDREN = #{record.metaHideChildren,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaHiddenHeaderContent != null">
+        META_HIDDEN_HEADER_CONTENT = #{record.metaHiddenHeaderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessType != null">
+        BUSINESS_TYPE = #{record.businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysFlag != null">
+        SYS_FLAG = #{record.sysFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysDept != null">
+        SYS_DEPT = #{record.sysDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCreateUser != null">
+        SYS_CREATE_USER = #{record.sysCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysUpdateUser != null">
+        SYS_UPDATE_USER = #{record.sysUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysCreateTime != null">
+        SYS_CREATE_TIME = #{record.sysCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sysUpdateTime != null">
+        SYS_UPDATE_TIME = #{record.sysUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sysRemark != null">
+        SYS_REMARK = #{record.sysRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuLevel != null">
+        MENU_LEVEL = #{record.menuLevel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_menu
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PROJECT_ID = #{record.projectId,jdbcType=VARCHAR},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      MENU_STATUS = #{record.menuStatus,jdbcType=VARCHAR},
+      MENU_TYPE = #{record.menuType,jdbcType=VARCHAR},
+      MENU_SORT = #{record.menuSort,jdbcType=DECIMAL},
+      MENU_PERMS = #{record.menuPerms,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      COMPONENT = #{record.component,jdbcType=VARCHAR},
+      REDIRECT = #{record.redirect,jdbcType=VARCHAR},
+      META_SHOW = #{record.metaShow,jdbcType=VARCHAR},
+      META_TITLE = #{record.metaTitle,jdbcType=VARCHAR},
+      META_ICON = #{record.metaIcon,jdbcType=VARCHAR},
+      META_TARGET = #{record.metaTarget,jdbcType=VARCHAR},
+      META_HIDE_CHILDREN = #{record.metaHideChildren,jdbcType=VARCHAR},
+      META_HIDDEN_HEADER_CONTENT = #{record.metaHiddenHeaderContent,jdbcType=VARCHAR},
+      BUSINESS_TYPE = #{record.businessType,jdbcType=VARCHAR},
+      SYS_FLAG = #{record.sysFlag,jdbcType=VARCHAR},
+      SYS_DEPT = #{record.sysDept,jdbcType=VARCHAR},
+      SYS_CREATE_USER = #{record.sysCreateUser,jdbcType=VARCHAR},
+      SYS_UPDATE_USER = #{record.sysUpdateUser,jdbcType=VARCHAR},
+      SYS_CREATE_TIME = #{record.sysCreateTime,jdbcType=TIMESTAMP},
+      SYS_UPDATE_TIME = #{record.sysUpdateTime,jdbcType=TIMESTAMP},
+      SYS_REMARK = #{record.sysRemark,jdbcType=VARCHAR},
+      MENU_LEVEL = #{record.menuLevel,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.ztuo.mbg.model.SysMenu">
+    update sys_menu
+    <set>
+      <if test="projectId != null">
+        PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuStatus != null">
+        MENU_STATUS = #{menuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null">
+        MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null">
+        MENU_SORT = #{menuSort,jdbcType=DECIMAL},
+      </if>
+      <if test="menuPerms != null">
+        MENU_PERMS = #{menuPerms,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        COMPONENT = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="redirect != null">
+        REDIRECT = #{redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="metaShow != null">
+        META_SHOW = #{metaShow,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        META_TITLE = #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="metaIcon != null">
+        META_ICON = #{metaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTarget != null">
+        META_TARGET = #{metaTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHideChildren != null">
+        META_HIDE_CHILDREN = #{metaHideChildren,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHiddenHeaderContent != null">
+        META_HIDDEN_HEADER_CONTENT = #{metaHiddenHeaderContent,jdbcType=VARCHAR},
+      </if>
+      <if test="businessType != null">
+        BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlag != null">
+        SYS_FLAG = #{sysFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sysDept != null">
+        SYS_DEPT = #{sysDept,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCreateUser != null">
+        SYS_CREATE_USER = #{sysCreateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sysUpdateUser != null">
+        SYS_UPDATE_USER = #{sysUpdateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="sysCreateTime != null">
+        SYS_CREATE_TIME = #{sysCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysUpdateTime != null">
+        SYS_UPDATE_TIME = #{sysUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysRemark != null">
+        SYS_REMARK = #{sysRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="menuLevel != null">
+        MENU_LEVEL = #{menuLevel,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.ztuo.mbg.model.SysMenu">
+    update sys_menu
+    set PROJECT_ID = #{projectId,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      MENU_STATUS = #{menuStatus,jdbcType=VARCHAR},
+      MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      MENU_SORT = #{menuSort,jdbcType=DECIMAL},
+      MENU_PERMS = #{menuPerms,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      COMPONENT = #{component,jdbcType=VARCHAR},
+      REDIRECT = #{redirect,jdbcType=VARCHAR},
+      META_SHOW = #{metaShow,jdbcType=VARCHAR},
+      META_TITLE = #{metaTitle,jdbcType=VARCHAR},
+      META_ICON = #{metaIcon,jdbcType=VARCHAR},
+      META_TARGET = #{metaTarget,jdbcType=VARCHAR},
+      META_HIDE_CHILDREN = #{metaHideChildren,jdbcType=VARCHAR},
+      META_HIDDEN_HEADER_CONTENT = #{metaHiddenHeaderContent,jdbcType=VARCHAR},
+      BUSINESS_TYPE = #{businessType,jdbcType=VARCHAR},
+      SYS_FLAG = #{sysFlag,jdbcType=VARCHAR},
+      SYS_DEPT = #{sysDept,jdbcType=VARCHAR},
+      SYS_CREATE_USER = #{sysCreateUser,jdbcType=VARCHAR},
+      SYS_UPDATE_USER = #{sysUpdateUser,jdbcType=VARCHAR},
+      SYS_CREATE_TIME = #{sysCreateTime,jdbcType=TIMESTAMP},
+      SYS_UPDATE_TIME = #{sysUpdateTime,jdbcType=TIMESTAMP},
+      SYS_REMARK = #{sysRemark,jdbcType=VARCHAR},
+      MENU_LEVEL = #{menuLevel,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

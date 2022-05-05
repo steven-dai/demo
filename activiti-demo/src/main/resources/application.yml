@@ -1,0 +1,64 @@
+# 服务配置
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+
+# 日志配置
+logging:
+  file:
+    path: /Users/steven/log
+  level:
+    root: info
+    org.activiti.engine.impl.persistence.entity: debug
+    cn.ztuo: debug
+
+# mybatis配置
+mybatis:
+  mapper-locations:
+    - classpath:dao/*.xml
+    - classpath*:cn/**/mapper/*.xml
+pagehelper:
+  page-size-zero: true
+
+spring:
+  application:
+    name: /activity
+  jackson:
+    serialization:
+      indent-output: true
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.31.56:33306/xinyu?characterEncoding=UTF-8&nullCatalogMeansCurrent=true
+    username: root
+    password: root
+  druid:
+    initial-size: 5 #连接池初始化大小
+    min-idle: 10 #最小空闲连接数
+    max-active: 20 #最大连接数
+    web-stat-filter:
+      exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+    stat-view-servlet: #访问监控网页的登录用户名和密码
+      login-username: druid
+      login-password: druid
+  activiti:
+    # 自动建表
+    database-schema: ACTIVITI
+    #1.flase：默认值。activiti在启动时，对比数据库表中保存的版本，如果没有表或者版本不匹配，将抛出异常
+    #2.true： activiti会对数据库中所有表进行更新操作。如果表不存在，则自动创建
+    #3.create_drop： 在activiti启动时创建表，在关闭时删除表（必须手动关闭引擎，才能删除表）
+    #4.drop-create： 在activiti启动时删除原来的旧表，然后在创建新表（不需要手动关闭引擎）
+    database-schema-update: true
+    # 历史记录存储等级
+    history-level: full
+    # 检测历史信息表是否存在，activiti7默认不生成历史信息表，开启历史表
+    db-history-used: true
+
+#安全路径白名单
+ignored:
+  urls:
+    - /login/**
