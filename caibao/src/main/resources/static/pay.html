@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title></title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  </link>
+  <link rel="stylesheet" href="https://a.caibaopay.com/external/jquery.json-browse.css">
+  </link>
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+  <style>
+    body {
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    #app {
+      background-color: #fff;
+      padding: 100px 5px 0;
+    }
+  </style>
+  <script type="text/javascript" src="https://a.caibaopay.com/external/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="https://a.caibaopay.com/external/jquery.json-browse.js"></script>
+  <script type="text/javascript" src="https://a.caibaopay.com/external/md5.min.js"></script>
+  <script type="text/javascript" src="https://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+</head>
+
+<body>
+  <div id="app">
+    <el-form :model="form" label-width="100px" label-width="150px" :rules="rules" ref="ruleForm">
+      <el-form-item label="商品名称:">
+        <el-input v-model="form.name" disabled></el-input>
+      </el-form-item>
+      <el-form-item label="付款码:" prop="barcode">
+        <el-input v-model="form.barcode" placeholder="扫码"></el-input>
+      </el-form-item>
+      <el-form-item label="支付金额:" prop="amount">
+        <el-input v-model="form.amount" placeholder="金额单位为分"></el-input>
+      </el-form-item>
+      <el-form-item label="订单描述:" prop="subject">
+        <el-input v-model="form.subject" placeholder="订单描述"></el-input>
+      </el-form-item>
+      <el-form-item label="订单备注:" prop="remark">
+        <el-input v-model="form.remark" placeholder="订单备注"></el-input>
+      </el-form-item>
+    </el-form>
+    <el-button type="primary" @click="onSubmit" style="width:100%">立即创建</el-button>
+    <el-dialog title="请扫码支付" :visible="dialogVisible" width="300px">
+      <div id="qrcode" style="text-align:center"></div>
+    </el-dialog>
+    <div class="result">{{result}}</div>
+  </div>
+</body>
+<script>
+  var app = new Vue({
+    el: "#app",
+    data: function () {
+      return {
+        result:"",
+
+        dialogVisible: false,
+        form: {
+          barcode:"",
+          amount: "",
+          subject: "",
+          remark: "",
+          name: "软件开发",
+
+        },
+        rules: {
+          amount: [
+            { required: true, message: '请输入商品金额', trigger: 'blur' },
+            { pattern: /^[123456789]\d*/, message: '金额格式错误', trigger: 'blur' },
+          ],
+          subject: [
+
+            { required: true, message: '请输入订单描述', trigger: 'blur' }
+          ],
+          remark: [
+            { required: true, message: '请输入订单备注', trigger: 'blur' }
+          ],
+        }
+      };
+    },
+    created: function () {
+    },
+    methods: {
+      onSubmit() {
+        console.log($);
+        var data = this.form;
+        var BaseURL = "https://31y9665g22.oicp.vip/ztuo/pay/barcode";
+        var url = BaseURL + "?barcode="+ this.form.barcode + "&amount=" + this.form.amount + "&subject=" + this.form.subject + "&remark=" + this.form.remark;
+        var self = this;
+        this.$refs["ruleForm"].validate((valid) => {
+          if (valid) {
+            $.ajax({
+              url: url,
+              success: function (res) {
+                res = JSON.parse(res)
+                self.result = res;
+                if (res.code == 2000) {
+                  self.dialogVisible = true;
+                  self.$nextTick(function () {
+                    $("#qrcode").qrcode({
+                      render: "canvas", //设置渲染方式，有table和canvas
+                      text: res.data, //扫描二维码后自动跳向该链接
+                      width: "200", //二维码的宽度
+                      height: "200", //二维码的高度
+                      background: "#FFFFFF", //二维码的后景色
+                      foreground: "#000000", //二维码的前景色
+                      // src: 'https://www.baidu.com/img/flexible/logo/pc/result.png', //二维码中间的图片
+                    });
+                  });
+                }
+                if (res.code == 500) {
+                  alert("参数错误");
+                }
+              },
+              error: function (xhr, status, error) {
+
+              }
+            });
+          } else {
+            alert("请检查填写的信息");
+          }
+        });
+      }
+    }
+  }).$mount();
+</script>
+
+</html>
