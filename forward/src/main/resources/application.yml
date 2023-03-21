@@ -1,0 +1,13 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 38081
+
+# 应用名称
+spring:
+  application:
+    name: forward
+
+# ai视频服务地址
+service:
+  url: http://192.168.31.9:38081/api/AIAnalysis/add
+
