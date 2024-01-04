@@ -1,8 +1,10 @@
 package site.daishuyang.face;
 
 import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,12 @@ import java.util.Map;
 @RestController
 @RequestMapping()
 public class FaceController {
+
+    @Value("${ztuo.baidu.clientId}")
+    private String clientId;
+
+    @Value("${ztuo.baidu.clientSecret}")
+    private String clientSecret;
     
     @RequestMapping(value = "verify",method = RequestMethod.POST)
     public String verify(@RequestBody FaceParam faceParam){
@@ -38,7 +46,7 @@ public class FaceController {
             param2.put("image",faceParam.getImage2());
             param2.put("image_type","URL");
             array.add(param2);
-            String jsonBody = array.toJSONString();
+            String jsonBody = JSONUtil.toJsonStr(array);
             // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
             String accessToken = getAuth();
             url = url+"?access_token="+accessToken;
@@ -51,7 +59,7 @@ public class FaceController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return "Fail";
     }
     
     /**
@@ -62,11 +70,7 @@ public class FaceController {
      * "expires_in": 2592000
      * }
      */
-    public static String getAuth() {
-        // 官网获取的 API Key 更新为你注册的
-        String clientId = "clientId";
-        // 官网获取的 Secret Key 更新为你注册的
-        String clientSecret = "clientSecret";
+    public String getAuth() {
         return getAuth(clientId, clientSecret);
     }
     
@@ -78,7 +82,7 @@ public class FaceController {
      * @return assess_token 示例：
      * "24.460da4889caad24cccdb1fea17221975.2592000.1491995545.282335-1234567"
      */
-    public static String getAuth(String ak, String sk) {
+    public String getAuth(String ak, String sk) {
         // 获取token地址
         String authHost = "https://aip.baidubce.com/oauth/2.0/token?";
         String getAccessTokenUrl = authHost

@@ -1,0 +1,9 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /face
+
+ztuo:
+  baidu:
+    clientId: Prj1cQmUUPSbTqL5SFSBZRWf
+    clientSecret: 8YYHnGoz4CUz0Fcow1TEnhXZniQy3ICC

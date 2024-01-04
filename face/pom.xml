@@ -4,14 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.15</version>
+    </parent>
+
     <groupId>site.daishuyang.face</groupId>
     <artifactId>face</artifactId>
     <version>1.0</version>
 
     <properties>
-        <spring-boot.version>2.6.2</spring-boot.version>
-        <fastjson.version>1.2.76</fastjson.version>
-        <hutool.version>5.5.7</hutool.version>
+        <fastjson.version>2.0.1</fastjson.version>
+        <hutool.version>5.8.24</hutool.version>
         <baidu-sdk.version>1.0.0</baidu-sdk.version>
     </properties>
 
@@ -19,7 +24,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -31,11 +35,15 @@
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.baidubce</groupId>
-            <artifactId>api-explorer-sdk</artifactId>
-            <version>${baidu-sdk.version}</version>
-        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
